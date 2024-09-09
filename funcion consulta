@@ -1,0 +1,31 @@
+Funcion 
+Ce crea una funcion  con la que queremos validar si existe ciertas especialidades en el centro de rehabilitacion
+cuando se ingrese el nombre de la especialidad si existe nostrae el nombre de la especialidad de lo contrario nos arroja un mesaje:
+
+DELIMITER $$
+
+CREATE FUNCTION consulta(nombre VARCHAR(100))
+  RETURNS VARCHAR(100) DETERMINISTIC
+BEGIN
+  -- Paso 1. Declaramos una variable 
+  DECLARE pac VARCHAR(100);
+  
+  --  seleccionamos el nombre de la especialidady se compara, se guarda en la variable
+  SELECT nombre_especialidad INTO pac
+  FROM especialidad
+  WHERE nombre_especialidad = nombre;
+  --  se valida por medio del if si en pac se encuentra el nombre ingresado
+  IF pac IS NOT NULL THEN
+    RETURN pac;
+  ELSE
+    RETURN 'no existe especialidad';
+  END IF;
+END $$
+
+DELIMITER ;
+
+posterior a creaer la funcion hacemos el llamado 
+
+select arcdata.consulta('odontologia');    --- donde realizamos la busqueda por medio de la funcion
+
+no existe especialidad --- Resultado obtenido.
